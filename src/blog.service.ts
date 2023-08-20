@@ -1,29 +1,29 @@
 import { PostDto } from './blog.model';
-import { BlogFileRepository } from './blog.repository';
+import { BlogRepository, BlogFileRepository } from './blog.repository';
 
 export class BlogService {
-  blogFileRepository: BlogFileRepository;
+  blogRepository: BlogRepository;
   constructor() {
-    this.blogFileRepository = new BlogFileRepository();
+    this.blogRepository = new BlogFileRepository();
   }
 
   async getAllPosts() {
-    return await this.blogFileRepository.getAllPosts();
+    return await this.blogRepository.getAllPosts();
   }
 
   async createPost(postDto: PostDto) {
-    return await this.blogFileRepository.createPost(postDto);
+    return await this.blogRepository.createPost(postDto);
   }
 
   async getPost(id: string) {
-    return await this.blogFileRepository.getPost(id);
+    return await this.blogRepository.getPost(id);
   }
 
   async deletePost(id: string) {
-    return await this.blogFileRepository.deletePost(id);
+    return await this.blogRepository.deletePost(id);
   }
 
   async updatePost(id: string, postDto: PostDto) {
-    return await this.blogFileRepository.updatePost(id, postDto);
+    return await this.blogRepository.updatePost(id, postDto);
   }
 }
