@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController, BlogController } from './blog.controller';
 import { BlogService } from './blog.service';
@@ -7,12 +7,17 @@ import { BlogFileRepository, BlogMongoRepository } from './blog.repository';
 import { Blog, BlogSchema } from './blog.schema';
 import { WeatherModule } from './weather/weather.module';
 
+console.log('env: ' + process.env.NODE_ENV);
+console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
+
 @Module({
   imports: [
     // ConfigModule 설정. isGlobal, cache, envFilePath 옵션을 자주 사용.
     ConfigModule.forRoot({
       isGlobal: true,
       cache: false,
+      // 환경 변수 파일 경로 지정
+      envFilePath: `${process.cwd()}/envs/${process.env.NODE_ENV}.env`,
     }),
     // 몽고디비 연결 설정
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/nestjs', {

@@ -15,8 +15,11 @@ export class AppController {
   constructor(private configService: ConfigService) {}
 
   @Get()
-  getHello() {
-    return this.configService.get('MESSAGE');
+  getHello(): object {
+    return {
+      message: this.configService.get('MESSAGE'), // `envFilePath` 지정으로 기존의 ".env" 파일은 인식 못 함
+      serviceUrl: this.configService.get('SERVICE_URL'),
+    };
   }
 }
 
