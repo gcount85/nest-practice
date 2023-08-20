@@ -10,19 +10,6 @@ import {
 import { BlogService } from './blog.service';
 import { ConfigService } from '@nestjs/config';
 
-@Controller()
-export class AppController {
-  constructor(private configService: ConfigService) {}
-
-  @Get()
-  getHello(): object {
-    return {
-      message: this.configService.get('MESSAGE'), // `envFilePath` 지정으로 기존의 ".env" 파일은 인식 못 함
-      serviceUrl: this.configService.get('SERVICE_URL'),
-    };
-  }
-}
-
 @Controller('blog') // {서버주소}/blog 이하의 요청을 처리한다는 뜻
 export class BlogController {
   constructor(private blogService: BlogService) {}
