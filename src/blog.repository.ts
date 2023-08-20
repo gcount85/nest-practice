@@ -9,6 +9,7 @@ export interface BlogRepository {
   updatePost(id: string, postDto: PostDto): Promise<PostDto>;
 }
 
+// BlogRepository 인터페이스를 구현한 클래스
 export class BlogFileRepository implements BlogRepository {
   FILE_NAME = './src/blog.data.json';
 
