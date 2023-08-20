@@ -3,4 +3,5 @@ export default {
   logLevel: 'info',
   apiVersion: '1.0.0',
   MESSAGE: 'hello hellooooo',
+  defaultDbInfo: 'mongodb://127.0.0.1:27017/nestjs',
 };

@@ -17,14 +17,14 @@ console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
     // ConfigModule 설정. isGlobal, cache, envFilePath 옵션을 자주 사용.
     ConfigModule.forRoot({
       isGlobal: true,
-      cache: false,
+      // cache: false,
       // 환경 변수 파일 경로 지정
       envFilePath: `${process.cwd()}/envs/${process.env.NODE_ENV}.env`,
       load: [config], // 커스텀 환경 변수 파일 설정
       expandVariables: true, // 환경변수 파일 내에서 변수 사용 가능
     }),
     // 몽고디비 연결 설정
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/nestjs', {
+    MongooseModule.forRoot(config().defaultDbInfo, {
       lazyConnection: true,
     }),
     // 몽고디비 스키마 설정
