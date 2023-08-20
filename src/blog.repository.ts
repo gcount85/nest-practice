@@ -60,6 +60,8 @@ export class BlogFileRepository implements BlogRepository {
 // 몽고디비용 리포지토리
 export class BlogMongoRepository implements BlogRepository {
   // Model<BlogDocument> 타입인 blogModel 주입
+  // Blog.name은 'Blog'라는 문자열을 리턴한다.
+  // NestJS가 내부적으로 해당 모델을 찾고 클래스에 주입하도록 모델 생성시 사용된 동일한 이름이어야 함
   constructor(@InjectModel(Blog.name) private blogModel: Model<BlogDocument>) {}
 
   async getAllPosts(): Promise<Blog[]> {
