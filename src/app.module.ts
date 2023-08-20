@@ -3,10 +3,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
-import { BlogController } from './blog.controller';
-import { BlogService } from './blog.service';
-import { BlogFileRepository, BlogMongoRepository } from './blog.repository';
-import { Blog, BlogSchema } from './blog.schema';
+import { BlogController } from './blog/blog.controller';
+import { BlogService } from './blog/blog.service';
+import {
+  BlogFileRepository,
+  BlogMongoRepository,
+} from './blog/blog.repository';
+import { Blog, BlogSchema } from './blog/blog.schema';
 import { WeatherModule } from './weather/weather.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
