@@ -8,6 +8,17 @@ import {
   Controller,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
+import { ConfigService } from '@nestjs/config';
+
+@Controller()
+export class AppController {
+  constructor(private configService: ConfigService) {}
+
+  @Get()
+  getHello() {
+    return this.configService.get('MESSAGE');
+  }
+}
 
 @Controller('blog') // {서버주소}/blog 이하의 요청을 처리한다는 뜻
 export class BlogController {
