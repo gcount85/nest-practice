@@ -11,11 +11,7 @@ import { BlogService } from './blog.service';
 
 @Controller('blog') // {서버주소}/blog 이하의 요청을 처리한다는 뜻
 export class BlogController {
-  blogService: BlogService;
-  constructor() {
-    // 생성자로 블로그 서비스 객체 생성. 의존성 주입으로 대체할 수 있음.
-    this.blogService = new BlogService();
-  }
+  constructor(private blogService: BlogService) {}
 
   @Get()
   async getAllPosts() {
