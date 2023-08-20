@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PostDto } from './blog.model';
-import { BlogFileRepository } from './blog.repository';
+import { BlogMongoRepository } from './blog.repository';
 
 @Injectable()
 export class BlogService {
-  constructor(private blogRepository: BlogFileRepository) {}
+  // blogRepository 의존성을 몽고 리포지토리로 변경
+  constructor(private blogRepository: BlogMongoRepository) {}
 
   async getAllPosts() {
     return await this.blogRepository.getAllPosts();
