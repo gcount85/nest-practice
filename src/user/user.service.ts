@@ -11,8 +11,17 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>, // Repository<Entity>
   ) {}
 
-  async createUser(newUser) {}
-  async getUser(email) {}
-  async updateUser(email, updateUser) {}
-  async deleteUser(email) {}
+  async createUser(newUser: User): Promise<User> {
+    return await this.userRepository.save(newUser);
+  }
+
+  async getUser(email: string): Promise<User> {
+    return await this.userRepository.findOneBy({ email: email });
+  }
+  async updateUser(email: string, updateUser: User) {
+    return await this.userRepository.update({ email: email }, updateUser);
+  }
+  async deleteUser(email: string) {
+    return await this.userRepository.delete({ email: email });
+  }
 }

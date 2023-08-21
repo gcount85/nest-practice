@@ -14,6 +14,6 @@ export class User {
   @Column()
   username: string;
 
-  @Column({ default: true })
+  @Column({ default: () => 'CURRENT_TIMESTAMP' }) // 이 부분 주의!
   createdDt: Date = new Date(); // 기본 값을 항상 지정
 }

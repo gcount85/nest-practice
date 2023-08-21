@@ -13,6 +13,7 @@ import { Blog, BlogSchema } from './blog/blog.schema';
 import { WeatherModule } from './weather/weather.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user/user.entity';
 
 console.log('env: ' + process.env.NODE_ENV);
 console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
@@ -38,12 +39,12 @@ console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
     UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: '127.0.0.1',
       port: 3306,
       username: 'root',
-      password: 'root',
-      database: 'test',
-      entities: [], // 엔티티 리스트
+      password: config().defaultDbPassword,
+      database: 'users',
+      entities: [User], // 엔티티 리스트
       synchronize: true, // 데이터베이스에 스키마를 동기화. prod 환경에서는 사용하면 안 됨.
       logging: true,
     }),
