@@ -10,6 +10,7 @@ import {
 import { UserService } from './user.service';
 import { User } from './user.entity'; // MySQL에서 받아오는 User 엔티티
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { CreateUserDto, UpdateUserDto } from 'src/blog/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -23,7 +24,7 @@ export class UserController {
   }
 
   @Post()
-  async createUser(@Body() newUser: User): Promise<User> {
+  async createUser(@Body() newUser: CreateUserDto): Promise<User> {
     return await this.userService.createUser(newUser);
   }
 
@@ -35,7 +36,7 @@ export class UserController {
   @Put(':email')
   async updateUser(
     @Param('email') email: string,
-    @Body() updateUser: User,
+    @Body() updateUser: UpdateUserDto,
   ): Promise<UpdateResult> {
     return await this.userService.updateUser(email, updateUser);
   }
