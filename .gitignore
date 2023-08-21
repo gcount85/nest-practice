@@ -1,5 +1,6 @@
 .env
 envs
+configs
 
 # compiled output
 /dist
