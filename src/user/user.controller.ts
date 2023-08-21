@@ -14,7 +14,12 @@ import { User } from './user.entity';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post('/create')
+  @Get()
+  async getAllUser() {
+    return await this.userService.getAllUser();
+  }
+
+  @Post()
   async createUser(@Body() newUser: User) {
     return await this.userService.createUser(newUser);
   }
@@ -24,12 +29,12 @@ export class UserController {
     return await this.userService.getUser(email);
   }
 
-  @Put('/update/:email')
+  @Put(':email')
   async updateUser(@Param('email') email: string, @Body() updateUser: User) {
     return await this.userService.updateUser(email, updateUser);
   }
 
-  @Delete('/delete/:email')
+  @Delete(':email')
   async deleteUser(@Param('email') email: string) {
     return await this.userService.deleteUser(email);
   }

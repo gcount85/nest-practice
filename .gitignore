@@ -1,6 +1,6 @@
 .env
 envs
-/configs
+configs
 
 # compiled output
 /dist
