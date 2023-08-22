@@ -8,11 +8,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.entity'; // MySQL에서 받아오는 User 엔티티
+import { User } from './user.entity';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { CreateUserDto, UpdateUserDto } from 'src/blog/user.dto';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 

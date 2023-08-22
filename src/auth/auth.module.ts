@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [UserModule], // UserService가 아닌 UserModule 자체를 임포트
-  providers: [AuthService],
+  imports: [UserModule], // UserService를 사용하기 위해 UserModule 자체를 임포트한다.
   controllers: [AuthController],
+  providers: [AuthService],
 })
 export class AuthModule {}
