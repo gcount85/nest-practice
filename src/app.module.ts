@@ -14,6 +14,7 @@ import { WeatherModule } from './weather/weather.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 console.log('env: ' + process.env.NODE_ENV);
 console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
@@ -48,6 +49,7 @@ console.log(`${process.cwd()}/envs/${process.env.NODE_ENV}.env`);
       synchronize: true, // 데이터베이스에 스키마를 동기화. prod 환경에서는 사용하면 안 됨.
       logging: true,
     }),
+    AuthModule,
   ],
   controllers: [AppController, BlogController],
   // 몽고 리포지토리 프로바이더 배열 추가
