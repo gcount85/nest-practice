@@ -36,8 +36,15 @@ export class AuthService {
     }
   }
 
-  async validateUser() {
-    // return await this.userService.getUser();
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.getUser(email);
+
+    if (!(user && bcrypt.compareSync(password, user.password))) {
+      throw new HttpException('로그인 실패', HttpStatus.UNAUTHORIZED);
+    }
+
+    user.password = undefined;
+    return user;
   }
 
   async logout() {
