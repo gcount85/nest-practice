@@ -1,4 +1,4 @@
-import { Get, Controller } from '@nestjs/common';
+import { Get, Controller, Render } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Controller()
@@ -6,6 +6,7 @@ export class AppController {
   constructor(private configService: ConfigService) {}
 
   @Get()
+  @Render('index')
   getHello(): object {
     return {
       // 환경 별 환경변수 출력
