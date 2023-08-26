@@ -33,7 +33,7 @@ async function bootstrap() {
 
   await app.listen(3000, () => {
     console.log(
-      `자 이제 시작이야 nest~ listening on ${configService.get('SERVICE_URL')}`,
+      `자 이제 시작이야 nest~ listening on ${configService.get('serviceUrl')}`,
     );
   });
 }
