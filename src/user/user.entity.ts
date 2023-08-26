@@ -8,7 +8,7 @@ export class User {
   @Column({ unique: true }) // 컬럼으로 인식하는 데코레이터
   email: string; // 유일무이한 값
 
-  @Column()
+  @Column({ nullable: true }) // 패스워드에 빈 값 허용(Oauth 소셜 로그인 케이스)
   password: string;
 
   @Column()
@@ -16,4 +16,7 @@ export class User {
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' }) // 이 부분 주의!
   createdDt: Date = new Date(); // 기본 값을 항상 지정
+
+  @Column({ nullable: true })
+  providerId: string; // OAuth 인증 시 식별자 값
 }

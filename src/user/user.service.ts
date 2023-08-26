@@ -23,13 +23,30 @@ export class UserService {
   async getUser(email: string): Promise<User> {
     return await this.userRepository.findOneBy({ email: email });
   }
+
   async updateUser(
     email: string,
     updateUser: UpdateUserDto,
   ): Promise<UpdateResult> {
     return await this.userRepository.update({ email: email }, updateUser);
   }
+
   async deleteUser(email: string): Promise<DeleteResult> {
     return await this.userRepository.delete({ email: email });
+  }
+
+  async findByEmailOrSave(email: string, username, providerId): Promise<User> {
+    const foundUser = await this.getUser(email);
+    if (foundUser) {
+      return foundUser;
+    }
+
+    const newUser = await this.userRepository.save({
+      email,
+      username,
+      providerId,
+    });
+
+    return newUser;
   }
 }

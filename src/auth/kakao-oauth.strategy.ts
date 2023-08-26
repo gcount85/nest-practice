@@ -3,6 +3,7 @@ import { Strategy, Profile } from 'passport-kakao';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class KakaoOauthStrategy extends PassportStrategy(Strategy, 'kakao') {
@@ -15,32 +16,29 @@ export class KakaoOauthStrategy extends PassportStrategy(Strategy, 'kakao') {
       clientID: configService.get('kakaoClientId'), // REST API 키
       clientSecret: configService.get('kakaoClientSecret'),
       callbackURL: 'http://localhost:3000/auth/oauth/kakao', // 카카오 OAuth 인증 후 실행되는 URL
-      scope: ['account_email', 'profile_nickname'], // 카카오 OAuth 인증시 요청하는 데이터
+      // scope: ['account_email', 'profile_nickname'], // 카카오 OAuth 인증시 요청하는 데이터
     });
   }
 
-  // OAuth 인증이 끝나고 콜백URL을 실행하기 전 유효성 검증하는 메서드
+  // OAuth 인증이 끝나고 콜백URL을 실행하기 전 유저 신원 검증하는 메서드
   async validate(
     accessToken: string,
     refreshToken: string,
     profile: Profile,
-    // done: (error: any, user?: any, info?: any) => void,
-  ) {
-    const { displayName, emails } = profile;
+  ): Promise<User> {
+    const { displayName, _json } = profile; // emails가 세팅 안 되는 이유?
+    const email = _json.kakao_account.email;
     const providerId = profile.id;
-    console.log(profile);
-    console.log('액세스 토큰', accessToken);
-    console.log('리프레시 토큰', refreshToken);
-    // console.log('프로바이더ID', providerId);
-    // console.log('이메일', emails);
+    // console.log(profile);
+    // console.log('액세스 토큰', accessToken);
+    // console.log('리프레시 토큰', refreshToken);
 
-    return profile;
+    const user = await this.userService.findByEmailOrSave(
+      email,
+      displayName,
+      providerId,
+    );
 
-    // return await this.userService.validate(
-    //   accessToken,
-    //   refreshToken,
-    //   profile,
-    //     done,
-    // );
+    return user;
   }
 }
