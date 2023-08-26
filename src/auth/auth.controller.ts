@@ -10,7 +10,12 @@ import {
 import { AuthService } from './auth.service';
 import { User } from 'src/user/user.entity';
 import { CreateUserDto } from 'src/user/user.dto';
-import { LoginGuard, AuthenticatedGuard, LocalAuthGuard } from './auth.guard';
+import {
+  LoginGuard,
+  AuthenticatedGuard,
+  LocalAuthGuard,
+  KakaoAuthGuard,
+} from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -53,6 +58,20 @@ export class AuthController {
     }
     return res.send({ message: 'login using guard success' });
   }
+
+  // 카카오 로그인으로 이동하는 라우터 메소드
+  @Get('oauth/to-kakao')
+  @UseGuards(KakaoAuthGuard)
+  async kakaoAuth(@Request() req) {}
+
+  // request 값을 받아서 화면에 보여주는 역할
+  @Get('oauth/kakao')
+  @UseGuards(KakaoAuthGuard)
+  async kakaoAuthRedirect(@Request() req, @Response() res) {
+    const { user } = req;
+    return res.send(user);
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('login/session')
   login3(@Request() req) {
