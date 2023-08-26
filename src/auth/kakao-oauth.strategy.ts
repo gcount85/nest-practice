@@ -26,10 +26,10 @@ export class KakaoOauthStrategy extends PassportStrategy(Strategy, 'kakao') {
     refreshToken: string,
     profile: Profile,
   ): Promise<User> {
-    const { displayName, _json } = profile; // emails가 세팅 안 되는 이유?
-    const email = _json.kakao_account.email;
+    const displayName = profile.displayName;
+    const email = profile._json.kakao_account.email;
     const providerId = profile.id;
-    // console.log(profile);
+    console.log(profile);
     // console.log('액세스 토큰', accessToken);
     // console.log('리프레시 토큰', refreshToken);
 
