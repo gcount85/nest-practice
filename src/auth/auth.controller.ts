@@ -10,7 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { User } from 'src/user/user.entity';
 import { CreateUserDto } from 'src/user/user.dto';
-import { LoginGuard } from './auth.guard';
+import { LoginGuard, AuthenticatedGuard, LocalAuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -52,6 +52,17 @@ export class AuthController {
       });
     }
     return res.send({ message: 'login using guard success' });
+  }
+  @UseGuards(LocalAuthGuard)
+  @Post('login/session')
+  login3(@Request() req) {
+    return req.user;
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get('test-guard2')
+  testGuardWithSession(@Request() req) {
+    return req.user;
   }
 
   // 로그인 된 때만 실행 가능한 메서드.
